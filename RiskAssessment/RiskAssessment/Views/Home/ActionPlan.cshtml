@@ -1,0 +1,117 @@
+﻿@model  RiskAssessment.Models.ActionPlanModel
+
+
+<h2>AssessmentResult</h2>
+
+@ViewBag.AssessmentType
+@ViewBag.RiskScore
+@ViewBag.RiskLevel
+@ViewBag.AssessmentNo
+@ViewBag.AssessmentTypeID
+
+
+
+<body>
+
+
+    @if (Model.AssessmentTypeID == 1)
+    {
+    <div>
+        @* list out the risks *@
+        <h2>Diet Plan</h2>
+        @for (int i = 0; i < Model.Dlist.Count; i++)
+        {
+
+            <span style="color: red">@Html.Raw(Model.Dlist[i].Risk)"</span>
+            <br />
+            <br />
+
+            //List out the nutrients for each risk
+            for (int x = 0; x < Model.Dlist[i].Nlist.Count; x++)
+            {
+                <span style="color: blue">@Html.Raw(Model.Dlist[i].Nlist[x].Nutrient)"</span>
+                <br />
+                <span style="color: black">@Html.Raw(Model.Dlist[i].Nlist[x].Description)"</span>
+                <br />
+                for (int z = 0; z < Model.Dlist[i].Nlist[x].Flist.Count; z++)
+                {
+                    <span style="color: green">@Html.Raw(Model.Dlist[i].Nlist[x].Flist[z].FoodGroupName)"</span>
+                    <span style="color: black">@Html.Raw(Model.Dlist[i].Nlist[x].Flist[z].Description)"</span>
+                    <img src="@Html.Raw(Model.Dlist[i].Nlist[x].Flist[z].ImgDir)" />
+                    <br />
+
+                }
+
+            }
+
+
+        }
+
+        <h2>Excerise Plan</h2>
+        @for (int i = 0; i < Model.Dlist.Count; i++)
+        {
+
+            <span style="color: red">@Html.Raw(Model.Dlist[i].Risk)"</span>
+            <br />
+            <br />
+
+            //List out the nutrients for each risk
+            for (int x = 0; x < Model.Dlist[i].Elist.Count; x++)
+            {
+                <span style="color: green">@Html.Raw(Model.Dlist[i].Elist[x].Excerise)"</span>
+                <img src="@Html.Raw(Model.Dlist[i].Elist[x].ImgDir)" />
+                <br />
+
+                for (int z = 0; z < Model.Dlist[i].Elist[x].Slist.Count; z++)
+                {
+                    <h4>Step: <span style="color: blue">@Html.Raw(Model.Dlist[i].Elist[x].Slist[z].StepNo)"</span></h4>
+                    <br />
+                    <span style="color: blue">@Html.Raw(Model.Dlist[i].Elist[x].Slist[z].Description)"</span>
+                    <br />
+
+                }
+
+            }
+
+
+        }
+
+
+    </div>
+    }
+
+    else
+    {
+
+        <hr />
+        <table cellpadding="0" cellspacing="0">
+
+            <tr>
+                <th>Risk</th>
+                <th>Actionr Required</th>
+                <th>Location</th>
+                <th>Who</th>
+                <th>Status</th>
+            </tr>
+
+
+
+            @for (int i = 0; i < Model.HSList.Count; i++)
+            {
+                <tr>
+                    <td><img src="@Html.Raw(Model.HSList[i].HSimg)" /></td>
+                    <td> @Html.Raw(Model.HSList[i].Risk)</td>
+                    <td> @Html.Raw(Model.HSList[i].ActionRequired)</td>
+                    <td> @Html.Raw(Model.HSList[i].Location)</td>
+                    <td> @Html.Raw(Model.HSList[i].Who)</td>
+                    <td> @Html.Raw(Model.HSList[i].Status)</td>
+
+                </tr>
+            }
+        </table>
+
+    }
+
+
+</body>
+
